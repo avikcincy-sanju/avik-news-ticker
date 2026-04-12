@@ -12,8 +12,22 @@
       --muted: #b3b3b3;
       --line: #1a1a1a;
       --card-line: #111111;
-      --header-height: 76px;
-      --section-title-height: 56px;
+      --header-height: 82px;
+      --breaking-height: 44px;
+      --section-title-height: 54px;
+
+      --global: #7ec8ff;
+      --india: #ffb366;
+      --payments: #6ee7a8;
+      --crypto: #c79bff;
+      --regulation: #ff7b7b;
+      --neutral: #eaeaea;
+
+      --kw-payments: #6ee7a8;
+      --kw-regulation: #ff7b7b;
+      --kw-india: #ffb366;
+      --kw-digital: #c79bff;
+      --kw-ai: #8fb3ff;
     }
 
     * {
@@ -48,13 +62,13 @@
       background: #000000;
       color: #ffffff;
       border-bottom: 1px solid var(--line);
-      z-index: 20;
+      z-index: 30;
     }
 
     .headerTitle {
       font-size: 28px;
-      font-weight: 500;
-      letter-spacing: 0.8px;
+      font-weight: 600;
+      letter-spacing: 0.5px;
       white-space: nowrap;
       flex: 0 0 auto;
     }
@@ -85,15 +99,66 @@
       text-align: right;
     }
 
-    .container {
+    .breakingBar {
       position: absolute;
       top: var(--header-height);
+      left: 0;
+      right: 0;
+      height: var(--breaking-height);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 18px;
+      background: #0a0a0a;
+      border-bottom: 1px solid var(--line);
+      z-index: 25;
+      overflow: hidden;
+    }
+
+    .breakingLabel {
+      color: var(--regulation);
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.7px;
+      white-space: nowrap;
+      flex: 0 0 auto;
+      z-index: 2;
+    }
+
+    .breakingTickerWrap {
+      position: relative;
+      flex: 1 1 auto;
+      overflow: hidden;
+      height: 100%;
+      display: flex;
+      align-items: center;
+    }
+
+    .breakingTicker {
+      display: inline-flex;
+      align-items: center;
+      white-space: nowrap;
+      will-change: transform;
+      animation: scrollBreaking 35s linear infinite;
+    }
+
+    .breakingText {
+      color: #f5f5f5;
+      font-size: 16px;
+      padding-right: 56px;
+      white-space: nowrap;
+      opacity: 0.95;
+    }
+
+    .container {
+      position: absolute;
+      top: calc(var(--header-height) + var(--breaking-height));
       left: 0;
       right: 0;
       bottom: 0;
       display: flex;
       width: 100vw;
-      height: calc(100vh - var(--header-height));
+      height: calc(100vh - var(--header-height) - var(--breaking-height));
     }
 
     .column {
@@ -120,6 +185,7 @@
       justify-content: center;
       text-align: center;
       font-size: 22px;
+      font-weight: 600;
       color: var(--muted);
       padding: 10px 12px;
       border-bottom: 1px solid var(--line);
@@ -134,7 +200,7 @@
       right: 0;
       bottom: 0;
       overflow: hidden;
-      padding: 0 16px 26px 16px;
+      padding: 0 16px 32px 16px;
     }
 
     .track {
@@ -154,12 +220,55 @@
     }
 
     .item {
-      font-size: 26px;
-      line-height: 1.38;
-      padding: 20px 8px 20px 8px;
+      padding: 16px 8px 18px 8px;
       border-bottom: 1px solid var(--card-line);
       word-break: break-word;
     }
+
+    .metaRow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 8px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.4px;
+      background: rgba(255,255,255,0.08);
+    }
+
+    .tag.global { color: var(--global); }
+    .tag.india { color: var(--india); }
+    .tag.payments { color: var(--payments); }
+    .tag.crypto { color: var(--crypto); }
+    .tag.regulation { color: var(--regulation); }
+    .tag.neutral { color: var(--neutral); }
+
+    .source {
+      font-size: 12px;
+      color: #8c8c8c;
+      letter-spacing: 0.3px;
+      text-transform: uppercase;
+    }
+
+    .headline {
+      font-size: 24px;
+      line-height: 1.34;
+      color: #f4f4f4;
+    }
+
+    .kw-payments { color: var(--kw-payments); font-weight: 700; }
+    .kw-regulation { color: var(--kw-regulation); font-weight: 700; }
+    .kw-india { color: var(--kw-india); font-weight: 700; }
+    .kw-digital { color: var(--kw-digital); font-weight: 700; }
+    .kw-ai { color: var(--kw-ai); font-weight: 700; }
 
     .status {
       position: absolute;
@@ -169,7 +278,7 @@
       z-index: 16;
       text-align: center;
       font-size: 13px;
-      color: #666666;
+      color: #7b7b7b;
       background: rgba(0, 0, 0, 0.72);
       padding: 4px 8px;
       pointer-events: none;
@@ -181,6 +290,15 @@
       }
       to {
         transform: translateY(calc(-1 * var(--loopDistance, 1000px)));
+      }
+    }
+
+    @keyframes scrollBreaking {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-50%);
       }
     }
 
@@ -197,12 +315,17 @@
         font-size: 12px;
       }
 
-      .item {
-        font-size: 22px;
+      .breakingLabel,
+      .breakingText {
+        font-size: 13px;
       }
 
       .title {
         font-size: 18px;
+      }
+
+      .headline {
+        font-size: 20px;
       }
     }
   </style>
@@ -217,6 +340,13 @@
     </div>
   </div>
 
+  <div class="breakingBar">
+    <div class="breakingLabel">BREAKING</div>
+    <div class="breakingTickerWrap">
+      <div class="breakingTicker" id="breakingTicker"></div>
+    </div>
+  </div>
+
   <div class="container">
     <section class="column">
       <div class="title">🌍 GLOBAL + INDIA</div>
@@ -227,7 +357,7 @@
     </section>
 
     <section class="column">
-      <div class="title">💳 FINTECH + PAYMENTS</div>
+      <div class="title">💳 FINTECH + DIGITAL MONEY</div>
       <div class="viewport" id="rightViewport">
         <div class="track" id="rightTrack"></div>
       </div>
@@ -236,28 +366,41 @@
   </div>
 
   <script>
-    const REFRESH_MS = 5 * 60 * 1000;
-    const PIXELS_PER_SECOND_LEFT = 28;
-    const PIXELS_PER_SECOND_RIGHT = 24;
+    const REFRESH_MS = 2 * 60 * 1000;
+    const PIXELS_PER_SECOND_LEFT = 26;
+    const PIXELS_PER_SECOND_RIGHT = 23;
+    const MAX_PER_SOURCE_PER_COLUMN = 3;
+
+    let lastGoodLeftItems = [];
+    let lastGoodRightItems = [];
+    let lastGoodBreakingItem = null;
 
     const leftFeeds = [
-      "https://feeds.reuters.com/reuters/businessNews",
-      "https://www.cnbc.com/id/10001147/device/rss/rss.html",
-      "https://www.livemint.com/rss/newsRSS",
-      "https://www.business-standard.com/rss/latest.rss",
-      "https://economictimes.indiatimes.com/rssfeedsdefault.cms"
+      { url: "https://feeds.bbci.co.uk/news/business/rss.xml", source: "BBC", defaultCategory: "global" },
+      { url: "https://rss.nytimes.com/services/xml/rss/nyt/Business.xml", source: "NYTimes", defaultCategory: "global" },
+      { url: "https://www.thehindu.com/business/feeder/default.rss", source: "The Hindu", defaultCategory: "india" },
+      { url: "https://www.moneycontrol.com/rss/business.xml", source: "Moneycontrol", defaultCategory: "india" },
+      { url: "https://www.ndtvprofit.com/rss", source: "NDTV Profit", defaultCategory: "india" }
     ];
 
     const rightFeeds = [
-      "https://www.finextra.com/rss/headlines.aspx",
-      "https://www.pymnts.com/feed/",
-      "https://www.coindesk.com/arc/outboundfeeds/rss/",
-      "https://cointelegraph.com/rss"
+      { url: "https://www.finextra.com/rss/headlines.aspx", source: "Finextra", defaultCategory: "payments" },
+      { url: "https://www.pymnts.com/feed/", source: "PYMNTS", defaultCategory: "payments" },
+      { url: "https://www.coindesk.com/arc/outboundfeeds/rss/", source: "CoinDesk", defaultCategory: "crypto" },
+      { url: "https://cointelegraph.com/rss", source: "Cointelegraph", defaultCategory: "crypto" }
     ];
 
-    async function fetchFeedTitles(feedUrl) {
+    const keywordRules = [
+      { cls: "kw-payments", words: ["visa", "mastercard", "payment", "payments", "merchant", "wallet", "checkout", "banking", "cross-border"] },
+      { cls: "kw-regulation", words: ["rbi", "sec", "cftc", "regulation", "regulator", "policy", "law", "rules", "compliance", "probe", "lawsuit", "sanction"] },
+      { cls: "kw-india", words: ["india", "indian", "rbi", "rupee", "mumbai", "delhi"] },
+      { cls: "kw-digital", words: ["stablecoin", "bitcoin", "crypto", "blockchain", "token", "digital money"] },
+      { cls: "kw-ai", words: ["ai", "artificial intelligence", "agentic", "automation", "model"] }
+    ];
+
+    async function fetchFeedItems(feed) {
       const apiUrl =
-        "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(feedUrl);
+        "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(feed.url);
 
       const response = await fetch(apiUrl, { cache: "no-store" });
       if (!response.ok) {
@@ -270,16 +413,20 @@
       }
 
       return data.items
-        .map(item => (item.title || "").trim())
-        .filter(Boolean);
+        .map(item => ({
+          title: (item.title || "").trim(),
+          source: feed.source,
+          defaultCategory: feed.defaultCategory
+        }))
+        .filter(item => item.title);
     }
 
-    function dedupeTitles(items) {
+    function dedupeItems(items) {
       const seen = new Set();
       const result = [];
 
       for (const item of items) {
-        const key = item.toLowerCase().replace(/\s+/g, " ").trim();
+        const key = item.title.toLowerCase().replace(/\s+/g, " ").trim();
         if (!seen.has(key)) {
           seen.add(key);
           result.push(item);
@@ -289,19 +436,159 @@
       return result;
     }
 
-    async function collectFeedTitles(feeds, perFeedLimit = 6, totalLimit = 24) {
-      let allTitles = [];
+    async function collectFeedItems(feeds, perFeedLimit = 6, totalLimit = 24) {
+      let allItems = [];
 
       for (const feed of feeds) {
         try {
-          const titles = await fetchFeedTitles(feed);
-          allTitles = allTitles.concat(titles.slice(0, perFeedLimit));
+          const items = await fetchFeedItems(feed);
+          allItems = allItems.concat(items.slice(0, perFeedLimit));
         } catch (error) {
-          console.log("Feed failed:", feed, error);
+          console.log("Feed failed:", feed.url, error);
         }
       }
 
-      return dedupeTitles(allTitles).slice(0, totalLimit);
+      return dedupeItems(allItems).slice(0, totalLimit);
+    }
+
+    function getCategory(item, columnType) {
+      const text = item.title.toLowerCase();
+
+      if (
+        text.includes("regulation") ||
+        text.includes("regulator") ||
+        text.includes("policy") ||
+        text.includes("rbi") ||
+        text.includes("sec") ||
+        text.includes("cftc") ||
+        text.includes("compliance") ||
+        text.includes("law") ||
+        text.includes("rules")
+      ) {
+        return "regulation";
+      }
+
+      if (
+        text.includes("stablecoin") ||
+        text.includes("bitcoin") ||
+        text.includes("crypto") ||
+        text.includes("blockchain") ||
+        text.includes("token")
+      ) {
+        return "crypto";
+      }
+
+      if (
+        text.includes("payment") ||
+        text.includes("merchant") ||
+        text.includes("fintech") ||
+        text.includes("visa") ||
+        text.includes("mastercard") ||
+        text.includes("checkout") ||
+        text.includes("wallet") ||
+        text.includes("banking") ||
+        text.includes("cross-border")
+      ) {
+        return "payments";
+      }
+
+      if (columnType === "left") {
+        return item.defaultCategory === "india" ? "india" : "global";
+      }
+
+      return item.defaultCategory || "neutral";
+    }
+
+    function getTagLabel(category) {
+      switch (category) {
+        case "global": return "GLOBAL";
+        case "india": return "INDIA";
+        case "payments": return "PAYMENTS";
+        case "crypto": return "DIGITAL MONEY";
+        case "regulation": return "REGULATION";
+        default: return "UPDATE";
+      }
+    }
+
+    function getPriorityScore(item, columnType) {
+      const text = item.title.toLowerCase();
+      let score = 0;
+
+      if (columnType === "right") {
+        if (text.includes("payment") || text.includes("payments")) score += 14;
+        if (text.includes("visa")) score += 16;
+        if (text.includes("mastercard")) score += 16;
+        if (text.includes("merchant")) score += 10;
+        if (text.includes("wallet")) score += 8;
+        if (text.includes("cross-border")) score += 15;
+        if (text.includes("banking")) score += 8;
+        if (text.includes("fintech")) score += 10;
+        if (text.includes("stablecoin")) score += 18;
+        if (text.includes("crypto")) score += 10;
+        if (text.includes("blockchain")) score += 8;
+      }
+
+      if (columnType === "left") {
+        if (text.includes("india") || text.includes("indian")) score += 14;
+        if (text.includes("rbi")) score += 18;
+        if (text.includes("rupee")) score += 8;
+      }
+
+      if (text.includes("regulation") || text.includes("policy") || text.includes("rules") || text.includes("law")) score += 18;
+      if (text.includes("sec") || text.includes("cftc") || text.includes("compliance")) score += 14;
+      if (text.includes("fraud")) score += 14;
+      if (text.includes("ai") || text.includes("artificial intelligence") || text.includes("agentic")) score += 10;
+      if (text.includes("probe") || text.includes("lawsuit") || text.includes("sanction")) score += 10;
+      if (text.includes("breaking")) score += 25;
+
+      return score;
+    }
+
+    function balanceAndRankItems(items, columnType, maxPerSource = 3) {
+      if (!items.length) return [];
+
+      const enriched = items.map((item, index) => ({
+        ...item,
+        priority: getPriorityScore(item, columnType),
+        originalIndex: index
+      }));
+
+      enriched.sort((a, b) => {
+        if (b.priority !== a.priority) return b.priority - a.priority;
+        return a.originalIndex - b.originalIndex;
+      });
+
+      const sourceCounts = new Map();
+      const selected = [];
+
+      for (const item of enriched) {
+        const count = sourceCounts.get(item.source) || 0;
+        if (count < maxPerSource) {
+          selected.push(item);
+          sourceCounts.set(item.source, count + 1);
+        }
+      }
+
+      // If balancing cut too much, fill back from remaining items
+      if (selected.length < Math.min(items.length, 12)) {
+        for (const item of enriched) {
+          if (!selected.includes(item)) {
+            selected.push(item);
+          }
+          if (selected.length >= Math.min(items.length, 12)) {
+            break;
+          }
+        }
+      }
+
+      return selected;
+    }
+
+    function shortenHeadline(text, maxLength = 128) {
+      if (text.length <= maxLength) return text;
+      const shortened = text.slice(0, maxLength);
+      const lastSpace = shortened.lastIndexOf(" ");
+      return (lastSpace > 80 ? shortened.slice(0, lastSpace) : shortened).trim() + "...";
     }
 
     function escapeHtml(text) {
@@ -310,15 +597,41 @@
       return div.innerHTML;
     }
 
-    function buildItemHTML(items) {
-      return items
-        .map(text => `<div class="item">• ${escapeHtml(text)}</div>`)
-        .join("");
+    function highlightKeywords(text) {
+      let output = escapeHtml(text);
+
+      keywordRules.forEach(rule => {
+        rule.words.forEach(word => {
+          const escaped = word.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+          const regex = new RegExp(`\\b(${escaped})\\b`, "gi");
+          output = output.replace(regex, `<span class="${rule.cls}">$1</span>`);
+        });
+      });
+
+      return output;
     }
 
-    function repeatUntilTallEnough(items, viewportHeight, estimatedItemHeight = 96) {
+    function buildItemHTML(items, columnType) {
+      return items.map(item => {
+        const category = getCategory(item, columnType);
+        const tagLabel = getTagLabel(category);
+        const headline = shortenHeadline(item.title);
+
+        return `
+          <div class="item">
+            <div class="metaRow">
+              <span class="tag ${category}">${tagLabel}</span>
+              <span class="source">${escapeHtml(item.source)}</span>
+            </div>
+            <div class="headline">${highlightKeywords(headline)}</div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function repeatUntilTallEnough(items, viewportHeight, estimatedItemHeight = 110) {
       if (!items.length) {
-        return ["No headlines available right now. Retrying shortly."];
+        return [];
       }
 
       const minItemsNeeded = Math.ceil((viewportHeight * 1.6) / estimatedItemHeight);
@@ -331,15 +644,72 @@
       return repeated;
     }
 
+    function isBreakingItem(item) {
+      const text = item.title.toLowerCase();
+      return (
+        text.includes("breaking") ||
+        text.includes("fed") ||
+        text.includes("rbi") ||
+        text.includes("regulation") ||
+        text.includes("policy") ||
+        text.includes("ban") ||
+        text.includes("probe") ||
+        text.includes("lawsuit") ||
+        text.includes("sanction") ||
+        text.includes("stablecoin")
+      );
+    }
+
+    function chooseBreaking(leftItems, rightItems) {
+      const combined = [...rightItems, ...leftItems];
+      const breaking = combined.find(isBreakingItem);
+      return breaking || combined[0] || null;
+    }
+
+    function renderBreakingBar(item) {
+      const el = document.getElementById("breakingTicker");
+
+      if (!item) {
+        if (!lastGoodBreakingItem) {
+          el.innerHTML = "";
+          return;
+        }
+        item = lastGoodBreakingItem;
+      } else {
+        lastGoodBreakingItem = item;
+      }
+
+      const text = `${item.source} • ${shortenHeadline(item.title, 160)} • `;
+      const safeText = highlightKeywords(text);
+
+      el.innerHTML = `
+        <div class="breakingText">${safeText}</div>
+        <div class="breakingText">${safeText}</div>
+        <div class="breakingText">${safeText}</div>
+        <div class="breakingText">${safeText}</div>
+      `;
+    }
+
     function renderSeamlessColumn(config) {
       const viewport = document.getElementById(config.viewportId);
       const track = document.getElementById(config.trackId);
       const status = document.getElementById(config.statusId);
 
+      if (!config.items || config.items.length === 0) {
+        status.innerText = `Feed unavailable • Retry in 2 min`;
+        return;
+      }
+
       track.style.animation = "none";
       track.innerHTML = "";
 
-      const headlines = repeatUntilTallEnough(config.headlines, viewport.clientHeight);
+      const ranked = balanceAndRankItems(config.items, config.columnType, MAX_PER_SOURCE_PER_COLUMN);
+      const items = repeatUntilTallEnough(ranked, viewport.clientHeight);
+
+      if (!items.length) {
+        status.innerText = `Feed unavailable • Retry in 2 min`;
+        return;
+      }
 
       const block1 = document.createElement("div");
       const block2 = document.createElement("div");
@@ -347,7 +717,7 @@
       block1.className = "block";
       block2.className = "block";
 
-      const html = buildItemHTML(headlines);
+      const html = buildItemHTML(items, config.columnType);
       block1.innerHTML = html;
       block2.innerHTML = html;
 
@@ -364,10 +734,10 @@
         void track.offsetHeight;
         track.style.animation = "";
 
-        status.innerText = `Updated: ${new Date().toLocaleTimeString([], {
+        status.innerText = `Updated ${new Date().toLocaleTimeString([], {
           hour: "numeric",
           minute: "2-digit"
-        })}`;
+        })} • Refresh every 2 min`;
       });
     }
 
@@ -406,16 +776,30 @@
     }
 
     async function refreshAllNews() {
-      const [leftTitles, rightTitles] = await Promise.all([
-        collectFeedTitles(leftFeeds, 6, 24),
-        collectFeedTitles(rightFeeds, 6, 24)
+      const [freshLeftItems, freshRightItems] = await Promise.all([
+        collectFeedItems(leftFeeds, 6, 24),
+        collectFeedItems(rightFeeds, 6, 24)
       ]);
+
+      const leftItems = freshLeftItems.length ? freshLeftItems : lastGoodLeftItems;
+      const rightItems = freshRightItems.length ? freshRightItems : lastGoodRightItems;
+
+      if (freshLeftItems.length) {
+        lastGoodLeftItems = freshLeftItems;
+      }
+
+      if (freshRightItems.length) {
+        lastGoodRightItems = freshRightItems;
+      }
+
+      renderBreakingBar(chooseBreaking(leftItems, rightItems));
 
       renderSeamlessColumn({
         viewportId: "leftViewport",
         trackId: "leftTrack",
         statusId: "leftStatus",
-        headlines: leftTitles,
+        items: leftItems,
+        columnType: "left",
         pixelsPerSecond: PIXELS_PER_SECOND_LEFT
       });
 
@@ -423,7 +807,8 @@
         viewportId: "rightViewport",
         trackId: "rightTrack",
         statusId: "rightStatus",
-        headlines: rightTitles,
+        items: rightItems,
+        columnType: "right",
         pixelsPerSecond: PIXELS_PER_SECOND_RIGHT
       });
     }
