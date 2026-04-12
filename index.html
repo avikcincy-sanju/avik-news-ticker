@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Avik's News Ticker</title>
+
+  <style>
+    :root {
+      --bg: #000000;
+      --fg: #ffffff;
+      --muted: #b3b3b3;
+      --line: #1a1a1a;
+      --card-line: #111111;
+      --header-height: 76px;
+      --section-title-height: 56px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html, body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: Arial, Helvetica, sans-serif;
+      overflow: hidden;
+    }
+
+    body {
+      position: relative;
+    }
+
+    .mainHeader {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: var(--header-height);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 0 22px;
+      background: #000000;
+      color: #ffffff;
+      border-bottom: 1px solid var(--line);
+      z-index: 20;
+    }
+
+    .headerTitle {
+      font-size: 28px;
+      font-weight: 500;
+      letter-spacing: 0.8px;
+      white-space: nowrap;
+      flex: 0 0 auto;
+    }
+
+    .headerClock {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      justify-content: center;
+      gap: 4px;
+      min-width: 0;
+      flex: 1 1 auto;
+    }
+
+    .clockRow {
+      font-size: 16px;
+      color: #d6d6d6;
+      line-height: 1.2;
+      white-space: nowrap;
+      text-align: right;
+    }
+
+    .dateRow {
+      font-size: 15px;
+      color: #9e9e9e;
+      letter-spacing: 0.2px;
+      white-space: nowrap;
+      text-align: right;
+    }
+
+    .container {
+      position: absolute;
+      top: var(--header-height);
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: flex;
+      width: 100vw;
+      height: calc(100vh - var(--header-height));
+    }
+
+    .column {
+      position: relative;
+      flex: 1;
+      border-right: 1px solid var(--line);
+      overflow: hidden;
+      background: #000000;
+    }
+
+    .column:last-child {
+      border-right: none;
+    }
+
+    .title {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 15;
+      height: var(--section-title-height);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      font-size: 22px;
+      color: var(--muted);
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+      background: rgba(0, 0, 0, 0.96);
+      letter-spacing: 0.4px;
+    }
+
+    .viewport {
+      position: absolute;
+      top: var(--section-title-height);
+      left: 0;
+      right: 0;
+      bottom: 0;
+      overflow: hidden;
+      padding: 0 16px 26px 16px;
+    }
+
+    .track {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      will-change: transform;
+      animation-name: scrollUp;
+      animation-timing-function: linear;
+      animation-iteration-count: infinite;
+      animation-duration: var(--duration, 120s);
+    }
+
+    .block {
+      width: 100%;
+    }
+
+    .item {
+      font-size: 26px;
+      line-height: 1.38;
+      padding: 20px 8px 20px 8px;
+      border-bottom: 1px solid var(--card-line);
+      word-break: break-word;
+    }
+
+    .status {
+      position: absolute;
+      bottom: 8px;
+      left: 0;
+      right: 0;
+      z-index: 16;
+      text-align: center;
+      font-size: 13px;
+      color: #666666;
+      background: rgba(0, 0, 0, 0.72);
+      padding: 4px 8px;
+      pointer-events: none;
+    }
+
+    @keyframes scrollUp {
+      from {
+        transform: translateY(0);
+      }
+      to {
+        transform: translateY(calc(-1 * var(--loopDistance, 1000px)));
+      }
+    }
+
+    @media (max-width: 900px) {
+      .headerTitle {
+        font-size: 22px;
+      }
+
+      .clockRow {
+        font-size: 13px;
+      }
+
+      .dateRow {
+        font-size: 12px;
+      }
+
+      .item {
+        font-size: 22px;
+      }
+
+      .title {
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="mainHeader">
+    <div class="headerTitle">Avik's News Ticker</div>
+
+    <div class="headerClock">
+      <div class="clockRow" id="clockRow">EST --:-- | IST --:-- | CST --:-- | PT --:--</div>
+      <div class="dateRow" id="dateRow">Loading date...</div>
+    </div>
+  </div>
+
+  <div class="container">
+    <section class="column">
+      <div class="title">🌍 GLOBAL + INDIA</div>
+      <div class="viewport" id="leftViewport">
+        <div class="track" id="leftTrack"></div>
+      </div>
+      <div class="status" id="leftStatus">Loading news...</div>
+    </section>
+
+    <section class="column">
+      <div class="title">💳 FINTECH + PAYMENTS</div>
+      <div class="viewport" id="rightViewport">
+        <div class="track" id="rightTrack"></div>
+      </div>
+      <div class="status" id="rightStatus">Loading news...</div>
+    </section>
+  </div>
+
+  <script>
+    const REFRESH_MS = 5 * 60 * 1000;
+    const PIXELS_PER_SECOND_LEFT = 28;
+    const PIXELS_PER_SECOND_RIGHT = 24;
+
+    const leftFeeds = [
+      "https://feeds.reuters.com/reuters/businessNews",
+      "https://www.cnbc.com/id/10001147/device/rss/rss.html",
+      "https://www.livemint.com/rss/newsRSS",
+      "https://www.business-standard.com/rss/latest.rss",
+      "https://economictimes.indiatimes.com/rssfeedsdefault.cms"
+    ];
+
+    const rightFeeds = [
+      "https://www.finextra.com/rss/headlines.aspx",
+      "https://www.pymnts.com/feed/",
+      "https://www.coindesk.com/arc/outboundfeeds/rss/",
+      "https://cointelegraph.com/rss"
+    ];
+
+    async function fetchFeedTitles(feedUrl) {
+      const apiUrl =
+        "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(feedUrl);
+
+      const response = await fetch(apiUrl, { cache: "no-store" });
+      if (!response.ok) {
+        throw new Error("Feed fetch failed");
+      }
+
+      const data = await response.json();
+      if (!data.items || !Array.isArray(data.items)) {
+        return [];
+      }
+
+      return data.items
+        .map(item => (item.title || "").trim())
+        .filter(Boolean);
+    }
+
+    function dedupeTitles(items) {
+      const seen = new Set();
+      const result = [];
+
+      for (const item of items) {
+        const key = item.toLowerCase().replace(/\s+/g, " ").trim();
+        if (!seen.has(key)) {
+          seen.add(key);
+          result.push(item);
+        }
+      }
+
+      return result;
+    }
+
+    async function collectFeedTitles(feeds, perFeedLimit = 6, totalLimit = 24) {
+      let allTitles = [];
+
+      for (const feed of feeds) {
+        try {
+          const titles = await fetchFeedTitles(feed);
+          allTitles = allTitles.concat(titles.slice(0, perFeedLimit));
+        } catch (error) {
+          console.log("Feed failed:", feed, error);
+        }
+      }
+
+      return dedupeTitles(allTitles).slice(0, totalLimit);
+    }
+
+    function escapeHtml(text) {
+      const div = document.createElement("div");
+      div.innerText = text;
+      return div.innerHTML;
+    }
+
+    function buildItemHTML(items) {
+      return items
+        .map(text => `<div class="item">• ${escapeHtml(text)}</div>`)
+        .join("");
+    }
+
+    function repeatUntilTallEnough(items, viewportHeight, estimatedItemHeight = 96) {
+      if (!items.length) {
+        return ["No headlines available right now. Retrying shortly."];
+      }
+
+      const minItemsNeeded = Math.ceil((viewportHeight * 1.6) / estimatedItemHeight);
+      const repeated = [];
+
+      while (repeated.length < minItemsNeeded) {
+        repeated.push(...items);
+      }
+
+      return repeated;
+    }
+
+    function renderSeamlessColumn(config) {
+      const viewport = document.getElementById(config.viewportId);
+      const track = document.getElementById(config.trackId);
+      const status = document.getElementById(config.statusId);
+
+      track.style.animation = "none";
+      track.innerHTML = "";
+
+      const headlines = repeatUntilTallEnough(config.headlines, viewport.clientHeight);
+
+      const block1 = document.createElement("div");
+      const block2 = document.createElement("div");
+
+      block1.className = "block";
+      block2.className = "block";
+
+      const html = buildItemHTML(headlines);
+      block1.innerHTML = html;
+      block2.innerHTML = html;
+
+      track.appendChild(block1);
+      track.appendChild(block2);
+
+      requestAnimationFrame(() => {
+        const blockHeight = block1.offsetHeight || 1000;
+        const durationSeconds = Math.max(blockHeight / config.pixelsPerSecond, 45);
+
+        track.style.setProperty("--loopDistance", `${blockHeight}px`);
+        track.style.setProperty("--duration", `${durationSeconds}s`);
+
+        void track.offsetHeight;
+        track.style.animation = "";
+
+        status.innerText = `Updated: ${new Date().toLocaleTimeString([], {
+          hour: "numeric",
+          minute: "2-digit"
+        })}`;
+      });
+    }
+
+    function getTime(zone) {
+      const now = new Date();
+      return new Intl.DateTimeFormat("en-US", {
+        timeZone: zone,
+        hour: "numeric",
+        minute: "2-digit",
+        hour12: true
+      }).format(now);
+    }
+
+    function getDate(zone) {
+      const now = new Date();
+      return new Intl.DateTimeFormat("en-US", {
+        timeZone: zone,
+        weekday: "long",
+        month: "long",
+        day: "numeric",
+        year: "numeric"
+      }).format(now);
+    }
+
+    function updateClocks() {
+      const clockRow = document.getElementById("clockRow");
+      const dateRow = document.getElementById("dateRow");
+
+      const est = getTime("America/New_York");
+      const ist = getTime("Asia/Kolkata");
+      const cst = getTime("America/Chicago");
+      const pt = getTime("America/Los_Angeles");
+
+      clockRow.textContent = `EST ${est} | IST ${ist} | CST ${cst} | PT ${pt}`;
+      dateRow.textContent = getDate("America/New_York");
+    }
+
+    async function refreshAllNews() {
+      const [leftTitles, rightTitles] = await Promise.all([
+        collectFeedTitles(leftFeeds, 6, 24),
+        collectFeedTitles(rightFeeds, 6, 24)
+      ]);
+
+      renderSeamlessColumn({
+        viewportId: "leftViewport",
+        trackId: "leftTrack",
+        statusId: "leftStatus",
+        headlines: leftTitles,
+        pixelsPerSecond: PIXELS_PER_SECOND_LEFT
+      });
+
+      renderSeamlessColumn({
+        viewportId: "rightViewport",
+        trackId: "rightTrack",
+        statusId: "rightStatus",
+        headlines: rightTitles,
+        pixelsPerSecond: PIXELS_PER_SECOND_RIGHT
+      });
+    }
+
+    updateClocks();
+    setInterval(updateClocks, 1000);
+
+    refreshAllNews();
+    setInterval(refreshAllNews, REFRESH_MS);
+
+    window.addEventListener("resize", () => {
+      refreshAllNews();
+    });
+  </script>
+</body>
+</html>
