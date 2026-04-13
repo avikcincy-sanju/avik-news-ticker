@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=1920, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Avik's Newsroom Monitor</title>
 
   <style>
@@ -14,8 +14,9 @@
       --line: rgba(255,255,255,0.08);
       --line-soft: rgba(255,255,255,0.05);
 
-      --header-height: 84px;
-      --section-title-height: 56px;
+      --header-height: 74px;
+      --section-title-height: 50px;
+      --ticker-height: 44px;
 
       --global: #7dd3fc;
       --india: #fbbf24;
@@ -34,7 +35,7 @@
 
       --shadow-1: 0 10px 30px rgba(0,0,0,0.22);
       --shadow-2: 0 20px 50px rgba(0,0,0,0.28);
-      --radius-xl: 24px;
+      --radius-xl: 22px;
     }
 
     * {
@@ -73,30 +74,32 @@
 
     .mainHeader {
       position: absolute;
-      top: 14px;
-      left: 14px;
-      right: 14px;
+      top: 10px;
+      left: 10px;
+      right: 10px;
       height: var(--header-height);
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 20px;
-      padding: 0 24px;
+      padding: 0 20px;
       background: rgba(18, 18, 20, 0.68);
       border: 1px solid var(--line);
-      border-radius: 22px;
+      border-radius: 20px;
       backdrop-filter: blur(24px) saturate(155%);
       -webkit-backdrop-filter: blur(24px) saturate(155%);
       box-shadow: var(--shadow-1);
       z-index: 30;
+      min-width: 0;
     }
 
     .headerTitle {
-      font-size: 30px;
+      font-size: 24px;
       font-weight: 650;
       letter-spacing: -0.03em;
       white-space: nowrap;
       color: #fafafa;
+      min-width: 0;
     }
 
     .headerClock {
@@ -110,7 +113,7 @@
     }
 
     .clockRow {
-      font-size: 15px;
+      font-size: 14px;
       color: #d4d4d8;
       line-height: 1.2;
       white-space: nowrap;
@@ -120,7 +123,7 @@
     }
 
     .dateRow {
-      font-size: 13px;
+      font-size: 12px;
       color: var(--muted-2);
       white-space: nowrap;
       text-align: right;
@@ -129,17 +132,19 @@
 
     .container {
       position: absolute;
-      top: calc(14px + var(--header-height) + 14px);
-      left: 14px;
-      right: 14px;
-      bottom: 14px;
+      top: calc(10px + var(--header-height) + 10px);
+      left: 10px;
+      right: 10px;
+      bottom: calc(10px + var(--ticker-height) + 8px);
       display: grid;
-      grid-template-columns: 1.08fr 1.08fr 0.9fr;
-      gap: 14px;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1fr) minmax(0, 0.78fr);
+      gap: 10px;
       z-index: 10;
+      min-width: 0;
     }
 
     .column {
+      min-width: 0;
       position: relative;
       overflow: hidden;
       background: linear-gradient(180deg, rgba(18,18,20,0.78) 0%, rgba(12,12,14,0.72) 100%);
@@ -168,15 +173,19 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      font-size: 18px;
+      font-size: 16px;
       font-weight: 650;
       color: #d4d4d8;
-      padding: 10px 14px;
+      padding: 10px 12px;
       border-bottom: 1px solid var(--line-soft);
       background: linear-gradient(180deg, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.018) 100%);
       letter-spacing: -0.01em;
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
+      min-width: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
     }
 
     .spotlightTitle {
@@ -190,9 +199,10 @@
       right: 0;
       bottom: 0;
       overflow: hidden;
-      padding: 8px 16px 20px 16px;
+      padding: 6px 12px 14px 12px;
       mask-image: linear-gradient(to bottom, transparent 0%, black 4%, black 96%, transparent 100%);
       -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 4%, black 96%, transparent 100%);
+      min-width: 0;
     }
 
     .track {
@@ -205,29 +215,32 @@
       animation-timing-function: linear;
       animation-iteration-count: infinite;
       animation-duration: var(--duration, 240s);
+      min-width: 0;
     }
 
     .block {
       width: 100%;
+      min-width: 0;
     }
 
     .highSignalWrap {
-      margin: 4px 2px 18px 2px;
-      padding: 14px;
-      border-radius: 20px;
+      margin: 4px 2px 14px 2px;
+      padding: 12px;
+      border-radius: 18px;
       border: 1px solid rgba(255,255,255,0.07);
       background: linear-gradient(180deg, rgba(255,255,255,0.055) 0%, rgba(255,255,255,0.026) 100%);
       box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+      min-width: 0;
     }
 
     .highSignalTitle {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
       padding: 6px 10px;
       border-radius: 999px;
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 800;
       letter-spacing: 0.08em;
       text-transform: uppercase;
@@ -237,8 +250,9 @@
     }
 
     .highSignalItem {
-      padding: 10px 2px 12px 2px;
+      padding: 8px 2px 10px 2px;
       border-bottom: 1px solid rgba(255,255,255,0.06);
+      min-width: 0;
     }
 
     .highSignalItem:last-child {
@@ -247,60 +261,69 @@
     }
 
     .highSignalHeadline {
-      font-size: 18px;
+      font-size: 15px;
       line-height: 1.28;
       font-weight: 620;
       color: #f5f5f7;
       letter-spacing: -0.02em;
-      margin-bottom: 6px;
+      margin-bottom: 5px;
+      min-width: 0;
+      word-break: break-word;
+      overflow-wrap: anywhere;
     }
 
     .highSignalSynopsis {
-      font-size: 13px;
-      line-height: 1.45;
+      font-size: 12px;
+      line-height: 1.42;
       color: #b6b7bf;
       letter-spacing: -0.01em;
+      min-width: 0;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+    }
+
+    .item,
+    .spotlightItem {
+      margin: 8px 2px;
+      padding: 14px 12px 14px 12px;
+      border-radius: 18px;
+      box-shadow: inset 0 1px 0 rgba(255,255,255,0.035);
+      min-width: 0;
+      word-break: break-word;
+      overflow-wrap: anywhere;
     }
 
     .item {
-      margin: 10px 2px;
-      padding: 16px 14px 18px 14px;
       border: 1px solid rgba(255,255,255,0.055);
-      border-radius: 18px;
       background: linear-gradient(180deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.022) 100%);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.035);
-      word-break: break-word;
     }
 
     .spotlightItem {
-      margin: 10px 2px;
-      padding: 16px 14px 18px 14px;
       border: 1px solid rgba(240,171,252,0.12);
-      border-radius: 18px;
       background: linear-gradient(180deg, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.025) 100%);
-      box-shadow: inset 0 1px 0 rgba(255,255,255,0.035);
-      word-break: break-word;
     }
 
     .metaRow {
       display: flex;
       align-items: center;
-      gap: 10px;
-      margin-bottom: 10px;
+      gap: 8px;
+      margin-bottom: 8px;
       flex-wrap: wrap;
+      min-width: 0;
     }
 
     .tag {
       display: inline-flex;
       align-items: center;
-      padding: 5px 10px;
+      padding: 4px 9px;
       border-radius: 999px;
-      font-size: 11px;
+      font-size: 10px;
       font-weight: 800;
       letter-spacing: 0.08em;
       background: rgba(255,255,255,0.06);
       border: 1px solid rgba(255,255,255,0.07);
       text-transform: uppercase;
+      white-space: nowrap;
     }
 
     .tag.global { color: var(--global); }
@@ -312,53 +335,81 @@
     .tag.spotlight { color: var(--spotlight); }
 
     .source {
-      font-size: 11px;
+      font-size: 10px;
       color: #8b8b95;
       letter-spacing: 0.08em;
       text-transform: uppercase;
       font-weight: 700;
+      white-space: nowrap;
     }
 
     .timestamp {
-      font-size: 11px;
+      font-size: 10px;
       color: #9ca3af;
-      letter-spacing: 0.03em;
+      letter-spacing: 0.02em;
       font-weight: 500;
       text-transform: none;
+      white-space: nowrap;
+    }
+
+    .headline,
+    .spotlightHeadline,
+    .synopsis,
+    .whyMattersText {
+      min-width: 0;
+      word-break: break-word;
+      overflow-wrap: anywhere;
     }
 
     .headline {
-      font-size: 22px;
-      line-height: 1.28;
+      font-size: 18px;
+      line-height: 1.24;
       color: #f5f5f7;
-      letter-spacing: -0.03em;
+      letter-spacing: -0.02em;
       font-weight: 590;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
     }
 
     .spotlightHeadline {
-      font-size: 21px;
-      line-height: 1.28;
+      font-size: 18px;
+      line-height: 1.24;
       color: #faf5ff;
-      letter-spacing: -0.03em;
+      letter-spacing: -0.02em;
       font-weight: 620;
-      margin-bottom: 8px;
+      margin-bottom: 6px;
+    }
+
+    .headlineTimestamp {
+      font-size: 12px;
+      color: #9ca3af;
+      margin: -1px 0 8px 0;
+      letter-spacing: 0.02em;
+      font-weight: 500;
+      min-width: 0;
+      word-break: break-word;
+      overflow-wrap: anywhere;
+    }
+
+    .spotlightHeadline + .headlineTimestamp {
+      color: #c4b5fd;
+      opacity: 0.92;
     }
 
     .synopsis {
-      font-size: 13px;
-      line-height: 1.45;
+      font-size: 12px;
+      line-height: 1.4;
       color: #aeb0b8;
       letter-spacing: -0.01em;
       font-weight: 450;
     }
 
     .whyMatters {
-      margin-top: 12px;
-      padding: 12px 13px;
+      margin-top: 10px;
+      padding: 10px 11px;
       border-radius: 14px;
       border: 1px solid rgba(255,255,255,0.06);
       background: rgba(255,255,255,0.03);
+      min-width: 0;
     }
 
     .whyMattersLabel {
@@ -371,8 +422,8 @@
     }
 
     .whyMattersText {
-      font-size: 12px;
-      line-height: 1.5;
+      font-size: 11px;
+      line-height: 1.4;
       color: #d1d5db;
       letter-spacing: -0.01em;
     }
@@ -386,11 +437,122 @@
     .newsLink {
       color: inherit;
       text-decoration: none;
+      min-width: 0;
+      display: block;
+    }
+
+    .breakingTicker {
+      position: absolute;
+      left: 10px;
+      right: 10px;
+      bottom: 10px;
+      height: var(--ticker-height);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 14px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: linear-gradient(90deg, rgba(255,255,255,0.04) 0%, rgba(255,255,255,0.025) 100%);
+      backdrop-filter: blur(20px) saturate(145%);
+      -webkit-backdrop-filter: blur(20px) saturate(145%);
+      box-shadow: var(--shadow-1);
+      overflow: hidden;
+      z-index: 40;
+      min-width: 0;
+    }
+
+    .breakingLabel {
+      flex: 0 0 auto;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 28px;
+      padding: 0 10px;
+      border-radius: 999px;
+      background: rgba(249,168,212,0.12);
+      border: 1px solid rgba(249,168,212,0.22);
+      color: #f9a8d4;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
+    .breakingViewport {
+      position: relative;
+      flex: 1 1 auto;
+      height: 100%;
+      overflow: hidden;
+      min-width: 0;
+    }
+
+    .breakingTrack {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      display: inline-flex;
+      align-items: center;
+      gap: 28px;
+      white-space: nowrap;
+      will-change: transform;
+      transform: translateY(-50%);
+      animation: tickerScroll linear infinite;
+      animation-duration: var(--tickerDuration, 120s);
+      min-width: 0;
+    }
+
+    .breakingBlock {
+      display: inline-flex;
+      align-items: center;
+      gap: 28px;
+      white-space: nowrap;
+      min-width: 0;
+    }
+
+    .breakingItem {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: #e5e7eb;
+      font-size: 13px;
+      letter-spacing: -0.01em;
+      white-space: nowrap;
+    }
+
+    .breakingDot {
+      color: #f9a8d4;
+      opacity: 0.9;
+      font-size: 13px;
+    }
+
+    .breakingSource {
+      color: #a1a1aa;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+    }
+
+    .breakingTime {
+      color: #9ca3af;
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    .breakingHeadline {
+      color: #f5f5f7;
     }
 
     @keyframes scrollUp {
       from { transform: translateY(0); }
       to { transform: translateY(calc(-1 * var(--loopDistance, 1000px))); }
+    }
+
+    @keyframes tickerScroll {
+      from { transform: translate(0, -50%); }
+      to { transform: translate(calc(-1 * var(--tickerDistance, 1000px)), -50%); }
     }
   </style>
 </head>
@@ -426,15 +588,25 @@
     </section>
   </div>
 
+  <div class="breakingTicker">
+    <div class="breakingLabel">Breaking</div>
+    <div class="breakingViewport" id="breakingViewport">
+      <div class="breakingTrack" id="breakingTrack"></div>
+    </div>
+  </div>
+
   <script>
     const REFRESH_MS = 2 * 60 * 1000;
     const PIXELS_PER_SECOND_LEFT = 7;
     const PIXELS_PER_SECOND_RIGHT = 7;
     const PIXELS_PER_SECOND_SPOTLIGHT = 6;
+    const PIXELS_PER_SECOND_TICKER = 70;
+
     const MAX_PER_SOURCE_PER_COLUMN = 3;
     const HIGH_SIGNAL_COUNT = 3;
     const MAX_ITEMS_PER_COLUMN = 14;
     const MAX_SPOTLIGHT_ITEMS = 10;
+    const MAX_BREAKING_ITEMS = 18;
 
     let lastGoodLeftItems = [];
     let lastGoodRightItems = [];
@@ -493,10 +665,14 @@
       const apiUrl = "https://api.rss2json.com/v1/api.json?rss_url=" + encodeURIComponent(feed.url);
       const response = await fetch(apiUrl, { cache: "no-store" });
 
-      if (!response.ok) throw new Error(`Feed fetch failed: ${feed.url}`);
+      if (!response.ok) {
+        throw new Error(`Feed fetch failed: ${feed.url}`);
+      }
 
       const data = await response.json();
-      if (!data.items || !Array.isArray(data.items)) return [];
+      if (!data.items || !Array.isArray(data.items)) {
+        return [];
+      }
 
       return data.items
         .map(item => ({
@@ -556,7 +732,9 @@
       if (setA.size === 0 || setB.size === 0) return 0;
 
       let intersection = 0;
-      for (const token of setA) if (setB.has(token)) intersection++;
+      for (const token of setA) {
+        if (setB.has(token)) intersection++;
+      }
 
       const union = new Set([...setA, ...setB]).size;
       return union ? intersection / union : 0;
@@ -565,18 +743,27 @@
     function areLikelyDuplicateTitles(a, b) {
       const n1 = normalizeTitle(a);
       const n2 = normalizeTitle(b);
+
       if (!n1 || !n2) return false;
       if (n1 === n2) return true;
-      if ((n1.includes(n2) || n2.includes(n1)) && Math.min(n1.length, n2.length) >= 40) return true;
+
+      if ((n1.includes(n2) || n2.includes(n1)) && Math.min(n1.length, n2.length) >= 40) {
+        return true;
+      }
+
       return getJaccardSimilarity(a, b) >= 0.78;
     }
 
     function dedupeItems(items) {
       const result = [];
+
       for (const item of items) {
         const duplicate = result.some(existing => areLikelyDuplicateTitles(existing.title, item.title));
-        if (!duplicate) result.push(item);
+        if (!duplicate) {
+          result.push(item);
+        }
       }
+
       return result;
     }
 
@@ -586,13 +773,17 @@
 
       for (const item of leftItems) {
         const duplicate = cleanLeft.some(existing => areLikelyDuplicateTitles(existing.title, item.title));
-        if (!duplicate) cleanLeft.push(item);
+        if (!duplicate) {
+          cleanLeft.push(item);
+        }
       }
 
       for (const item of rightItems) {
         const duplicateOnLeft = cleanLeft.some(existing => areLikelyDuplicateTitles(existing.title, item.title));
         const duplicateOnRight = cleanRight.some(existing => areLikelyDuplicateTitles(existing.title, item.title));
-        if (!duplicateOnLeft && !duplicateOnRight) cleanRight.push(item);
+        if (!duplicateOnLeft && !duplicateOnRight) {
+          cleanRight.push(item);
+        }
       }
 
       return { cleanLeft, cleanRight };
@@ -600,14 +791,18 @@
 
     async function collectFeedItems(feeds, perFeedLimit = 6, totalLimit = 30) {
       let allItems = [];
+
       for (const feed of feeds) {
         try {
           const items = await fetchFeedItems(feed);
-          if (items.length > 0) allItems = allItems.concat(items.slice(0, perFeedLimit));
+          if (items.length > 0) {
+            allItems = allItems.concat(items.slice(0, perFeedLimit));
+          }
         } catch (error) {
           console.log("Feed failed:", feed.url, error);
         }
       }
+
       return dedupeItems(allItems).slice(0, totalLimit);
     }
 
@@ -615,28 +810,60 @@
       const text = item.title.toLowerCase();
 
       if (
-        text.includes("regulation") || text.includes("regulator") || text.includes("policy") ||
-        text.includes("rbi") || text.includes("sec") || text.includes("cftc") ||
-        text.includes("compliance") || text.includes("law") || text.includes("rules") ||
-        text.includes("central bank") || text.includes("bis") || text.includes("imf")
-      ) return "regulation";
+        text.includes("regulation") ||
+        text.includes("regulator") ||
+        text.includes("policy") ||
+        text.includes("rbi") ||
+        text.includes("sec") ||
+        text.includes("cftc") ||
+        text.includes("compliance") ||
+        text.includes("law") ||
+        text.includes("rules") ||
+        text.includes("central bank") ||
+        text.includes("bis") ||
+        text.includes("imf")
+      ) {
+        return "regulation";
+      }
 
       if (
-        text.includes("stablecoin") || text.includes("usdc") || text.includes("usdt") ||
-        text.includes("tokenization") || text.includes("onchain") || text.includes("on-chain") ||
-        text.includes("bitcoin") || text.includes("crypto") || text.includes("blockchain") ||
-        text.includes("token") || text.includes("cbdc")
-      ) return "crypto";
+        text.includes("stablecoin") ||
+        text.includes("usdc") ||
+        text.includes("usdt") ||
+        text.includes("tokenization") ||
+        text.includes("onchain") ||
+        text.includes("on-chain") ||
+        text.includes("bitcoin") ||
+        text.includes("crypto") ||
+        text.includes("blockchain") ||
+        text.includes("token") ||
+        text.includes("cbdc")
+      ) {
+        return "crypto";
+      }
 
       if (
-        text.includes("payment") || text.includes("merchant") || text.includes("fintech") ||
-        text.includes("visa") || text.includes("mastercard") || text.includes("checkout") ||
-        text.includes("wallet") || text.includes("banking") || text.includes("cross-border") ||
-        text.includes("artificial intelligence") || text.includes("ai") ||
-        text.includes("fednow") || text.includes("iso 20022")
-      ) return "payments";
+        text.includes("payment") ||
+        text.includes("merchant") ||
+        text.includes("fintech") ||
+        text.includes("visa") ||
+        text.includes("mastercard") ||
+        text.includes("checkout") ||
+        text.includes("wallet") ||
+        text.includes("banking") ||
+        text.includes("cross-border") ||
+        text.includes("artificial intelligence") ||
+        text.includes("ai") ||
+        text.includes("fednow") ||
+        text.includes("iso 20022")
+      ) {
+        return "payments";
+      }
 
-      if (columnType === "left") return item.defaultCategory === "india" ? "india" : "global";
+      if (columnType === "left") {
+        return item.defaultCategory === "india" ? "india" : "global";
+      }
+
       return item.defaultCategory || "neutral";
     }
 
@@ -706,6 +933,7 @@
       enriched.sort((a, b) => {
         const dateA = new Date(a.pubDate || 0).getTime();
         const dateB = new Date(b.pubDate || 0).getTime();
+
         if (b.priority !== a.priority) return b.priority - a.priority;
         if (dateB !== dateA) return dateB - dateA;
         return a.originalIndex - b.originalIndex;
@@ -738,6 +966,7 @@
         .trim();
 
       if (!cleaned) return "";
+
       const parts = cleaned.match(/[^.!?]+[.!?]+/g);
       if (parts && parts.length) {
         const firstTwo = parts.slice(0, 2).join(" ").replace(/\s+/g, " ").trim();
@@ -759,24 +988,31 @@
       if (text.includes("visa") || text.includes("mastercard")) {
         return "Could affect card network strategy, merchant economics, or acceptance trends across the market.";
       }
+
       if (text.includes("stablecoin")) {
         return "Signals momentum in programmable money, new settlement models, or cross-border payment innovation.";
       }
+
       if (text.includes("cross-border")) {
         return "Important for payment speed, corridor economics, settlement efficiency, and global merchant operations.";
       }
+
       if (category === "regulation") {
         return "This regulatory development could influence compliance priorities, market behavior, and strategic planning.";
       }
+
       if (category === "crypto") {
         return "This digital money update may shape adoption, investor sentiment, policy debate, or infrastructure direction.";
       }
+
       if (category === "payments") {
         return "This payments and fintech update is relevant to merchants, platforms, banks, and digital commerce decision-making.";
       }
+
       if (category === "india") {
         return "This India-focused development may matter for financial services, consumer behavior, and business conditions.";
       }
+
       if (columnType === "left") {
         return "This business and macro update adds context to why the headline matters more broadly.";
       }
@@ -796,30 +1032,39 @@
       if (text.includes("stablecoin") && text.includes("bank")) {
         return "This may indicate stronger institutional movement toward stablecoin-enabled settlement, with implications for treasury design, liquidity models, and bank-led digital money infrastructure.";
       }
+
       if (text.includes("stablecoin") && text.includes("cross-border")) {
         return "This matters because cross-border stablecoin workflows are steadily moving closer to real operating use cases where speed, transparency, and cost are strategic differentiators.";
       }
+
       if (text.includes("stablecoin") && (text.includes("regulation") || text.includes("policy") || text.includes("law") || text.includes("sec"))) {
         return "The strategic significance lies in whether regulation accelerates enterprise adoption through clarity or slows expansion by increasing compliance and operating friction.";
       }
+
       if (text.includes("stablecoin") || text.includes("usdc") || text.includes("usdt")) {
         return "This is relevant because stablecoins are becoming a practical bridge between traditional financial rails and programmable digital settlement.";
       }
+
       if (text.includes("tokenization")) {
         return "This points to the broader shift toward programmable assets that can reshape issuance, transfer, settlement, and reconciliation models.";
       }
+
       if (text.includes("cbdc")) {
         return "CBDC developments can influence policy direction, interoperability priorities, and the competitive position of private digital money models.";
       }
+
       if (text.includes("visa") || text.includes("mastercard")) {
         return "Moves by large network players can materially influence merchant adoption patterns, ecosystem standards, and the shape of future digital money integration.";
       }
+
       if (category === "regulation") {
         return "This has strategic weight because regulatory direction often determines adoption speed, compliance cost, and market viability.";
       }
+
       if (category === "payments") {
         return "This matters because payments infrastructure shifts can change customer experience, operating margins, settlement speed, and platform scalability.";
       }
+
       if (category === "india") {
         return "This is important because India often serves as a leading indicator for scaled digital payment adoption and public infrastructure-led innovation.";
       }
@@ -835,6 +1080,7 @@
 
     function highlightKeywords(text) {
       let output = escapeHtml(text);
+
       keywordRules.forEach(rule => {
         rule.words.forEach(word => {
           const escaped = word.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -842,13 +1088,16 @@
           output = output.replace(regex, `<span class="${rule.cls}">$1</span>`);
         });
       });
+
       return output;
     }
 
     function formatDateTime(dateStr) {
       if (!dateStr) return "";
+
       const date = new Date(dateStr);
       if (Number.isNaN(date.getTime())) return "";
+
       return new Intl.DateTimeFormat("en-US", {
         month: "short",
         day: "numeric",
@@ -873,12 +1122,16 @@
                 ${isSpotlight ? "STABLECOIN" : getTagLabel(category)}
               </span>
               <span class="source">${escapeHtml(item.source)}</span>
-              <span class="timestamp">${escapeHtml(formatDateTime(item.pubDate))}</span>
             </div>
+
             <a class="newsLink" href="${escapeHtml(item.link || "#")}" target="_blank" rel="noopener noreferrer">
               <div class="${isSpotlight ? "spotlightHeadline" : "headline"}">${highlightKeywords(item.title)}</div>
             </a>
+
+            <div class="headlineTimestamp">${escapeHtml(formatDateTime(item.pubDate))}</div>
+
             <div class="synopsis">${escapeHtml(synopsis)}</div>
+
             <div class="whyMatters">
               <div class="whyMattersLabel">Why this matters</div>
               <div class="whyMattersText">${escapeHtml(whyThisMatters)}</div>
@@ -890,6 +1143,7 @@
 
     function buildHighSignalHTML(items) {
       if (!items.length) return "";
+
       return `
         <div class="highSignalWrap">
           <div class="highSignalTitle">🔥 High Signal</div>
@@ -910,15 +1164,23 @@
         .slice(0, HIGH_SIGNAL_COUNT)
         .map(item => {
           const category = getCategory(item, columnType);
-          return { ...item, _synopsis: generateSynopsis(item, category, columnType) };
+          return {
+            ...item,
+            _synopsis: generateSynopsis(item, category, columnType)
+          };
         });
     }
 
-    function repeatUntilTallEnough(items, viewportHeight, estimatedItemHeight = 330) {
+    function repeatUntilTallEnough(items, viewportHeight, estimatedItemHeight = 300) {
       if (!items.length) return [];
+
       const minItemsNeeded = Math.ceil((viewportHeight * 1.9) / estimatedItemHeight);
       const repeated = [];
-      while (repeated.length < minItemsNeeded) repeated.push(...items);
+
+      while (repeated.length < minItemsNeeded) {
+        repeated.push(...items);
+      }
+
       return repeated;
     }
 
@@ -946,7 +1208,12 @@
         ? ranked.filter(item => !highSignal.some(signal => areLikelyDuplicateTitles(signal.title, item.title)))
         : ranked;
 
-      const repeatedItems = repeatUntilTallEnough(regularItems.length ? regularItems : ranked, viewport.clientHeight, config.estimatedItemHeight || 330);
+      const repeatedItems = repeatUntilTallEnough(
+        regularItems.length ? regularItems : ranked,
+        viewport.clientHeight,
+        config.estimatedItemHeight || 300
+      );
+
       const html = (config.showHighSignal ? buildHighSignalHTML(highSignal) : "") + buildItemHTML(repeatedItems, config.columnType);
 
       const block1 = document.createElement("div");
@@ -965,6 +1232,7 @@
 
         track.style.setProperty("--loopDistance", `${blockHeight}px`);
         track.style.setProperty("--duration", `${durationSeconds}s`);
+
         void track.offsetHeight;
         track.style.animation = "";
       });
@@ -972,6 +1240,7 @@
 
     function isStablecoinHeadline(item) {
       const text = (item.title + " " + (item.description || "")).toLowerCase();
+
       return (
         text.includes("stablecoin") ||
         text.includes("usdc") ||
@@ -1001,6 +1270,55 @@
           return dateB - dateA;
         })
         .slice(0, MAX_SPOTLIGHT_ITEMS);
+    }
+
+    function buildBreakingTickerHTML(items) {
+      return items.map(item => `
+        <div class="breakingItem">
+          <span class="breakingDot">●</span>
+          <span class="breakingSource">${escapeHtml(item.source || "Feed")}</span>
+          <span class="breakingTime">${escapeHtml(formatDateTime(item.pubDate))}</span>
+          <span class="breakingHeadline">${escapeHtml(item.title)}</span>
+        </div>
+      `).join("");
+    }
+
+    function renderBreakingTicker(items) {
+      const track = document.getElementById("breakingTrack");
+
+      if (!items || !items.length) {
+        track.innerHTML = "";
+        return;
+      }
+
+      track.style.animation = "none";
+      track.innerHTML = "";
+
+      const uniqueItems = dedupeItems(items).slice(0, MAX_BREAKING_ITEMS);
+      const html = buildBreakingTickerHTML(uniqueItems);
+
+      const block1 = document.createElement("div");
+      const block2 = document.createElement("div");
+
+      block1.className = "breakingBlock";
+      block2.className = "breakingBlock";
+
+      block1.innerHTML = html;
+      block2.innerHTML = html;
+
+      track.appendChild(block1);
+      track.appendChild(block2);
+
+      requestAnimationFrame(() => {
+        const blockWidth = block1.offsetWidth || 1500;
+        const durationSeconds = Math.max(blockWidth / PIXELS_PER_SECOND_TICKER, 35);
+
+        track.style.setProperty("--tickerDistance", `${blockWidth}px`);
+        track.style.setProperty("--tickerDuration", `${durationSeconds}s`);
+
+        void track.offsetWidth;
+        track.style.animation = "";
+      });
     }
 
     function getTime(zone) {
@@ -1038,6 +1356,7 @@
 
       const leftItems = cleanLeft.length ? cleanLeft : lastGoodLeftItems;
       const rightItems = cleanRight.length ? cleanRight : lastGoodRightItems;
+
       if (cleanLeft.length) lastGoodLeftItems = cleanLeft;
       if (cleanRight.length) lastGoodRightItems = cleanRight;
 
@@ -1053,7 +1372,7 @@
         pixelsPerSecond: PIXELS_PER_SECOND_LEFT,
         showHighSignal: true,
         minDuration: 110,
-        estimatedItemHeight: 320
+        estimatedItemHeight: 270
       });
 
       renderSeamlessColumn({
@@ -1064,7 +1383,7 @@
         pixelsPerSecond: PIXELS_PER_SECOND_RIGHT,
         showHighSignal: true,
         minDuration: 110,
-        estimatedItemHeight: 340
+        estimatedItemHeight: 285
       });
 
       renderSeamlessColumn({
@@ -1077,8 +1396,16 @@
         maxPerSource: 4,
         maxItems: MAX_SPOTLIGHT_ITEMS,
         minDuration: 95,
-        estimatedItemHeight: 360
+        estimatedItemHeight: 300
       });
+
+      const breakingItems = [
+        ...spotlightItems,
+        ...rightItems.slice(0, 10),
+        ...leftItems.slice(0, 8)
+      ];
+
+      renderBreakingTicker(breakingItems);
     }
 
     updateClocks();
