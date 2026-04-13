@@ -14,9 +14,10 @@
       --line: rgba(255,255,255,0.08);
       --line-soft: rgba(255,255,255,0.05);
 
-      --header-height: 74px;
+      --header-height: 78px;
+      --themes-height: 36px;
       --section-title-height: 50px;
-      --ticker-height: 44px;
+      --ticker-height: 46px;
 
       --global: #7dd3fc;
       --india: #fbbf24;
@@ -93,13 +94,59 @@
       min-width: 0;
     }
 
+    .headerLeft {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+      gap: 6px;
+    }
+
     .headerTitle {
       font-size: 24px;
-      font-weight: 650;
+      font-weight: 670;
       letter-spacing: -0.03em;
       white-space: nowrap;
       color: #fafafa;
       min-width: 0;
+    }
+
+    .liveRow {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+      color: #c7c9d1;
+      font-size: 11px;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .livePill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 4px 9px;
+      border-radius: 999px;
+      background: rgba(134,239,172,0.08);
+      border: 1px solid rgba(134,239,172,0.18);
+      color: #86efac;
+      white-space: nowrap;
+    }
+
+    .liveDot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #86efac;
+      box-shadow: 0 0 10px rgba(134,239,172,0.75);
+      animation: pulseLive 1.7s infinite ease-in-out;
+    }
+
+    @keyframes pulseLive {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.55; transform: scale(0.82); }
     }
 
     .headerClock {
@@ -130,9 +177,76 @@
       letter-spacing: 0.01em;
     }
 
+    .themesBar {
+      position: absolute;
+      top: calc(10px + var(--header-height) + 8px);
+      left: 10px;
+      right: 10px;
+      height: var(--themes-height);
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 0 14px;
+      background: rgba(18,18,20,0.58);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      backdrop-filter: blur(18px) saturate(140%);
+      -webkit-backdrop-filter: blur(18px) saturate(140%);
+      box-shadow: var(--shadow-1);
+      z-index: 28;
+      overflow: hidden;
+      min-width: 0;
+    }
+
+    .themesLabel {
+      flex: 0 0 auto;
+      color: #bfc4cf;
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .themesViewport {
+      position: relative;
+      flex: 1 1 auto;
+      overflow: hidden;
+      min-width: 0;
+      height: 100%;
+    }
+
+    .themesTrack {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      display: inline-flex;
+      align-items: center;
+      gap: 16px;
+      transform: translateY(-50%);
+      white-space: nowrap;
+      min-width: 0;
+    }
+
+    .themeChip {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.07);
+      background: rgba(255,255,255,0.03);
+      color: #d7d9e0;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      white-space: nowrap;
+    }
+
     .container {
       position: absolute;
-      top: calc(10px + var(--header-height) + 10px);
+      top: calc(10px + var(--header-height) + 8px + var(--themes-height) + 8px);
       left: 10px;
       right: 10px;
       bottom: calc(10px + var(--ticker-height) + 8px);
@@ -270,6 +384,11 @@
       min-width: 0;
       word-break: break-word;
       overflow-wrap: anywhere;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
 
     .highSignalSynopsis {
@@ -280,6 +399,11 @@
       min-width: 0;
       word-break: break-word;
       overflow-wrap: anywhere;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
 
     .item,
@@ -291,6 +415,7 @@
       min-width: 0;
       word-break: break-word;
       overflow-wrap: anywhere;
+      position: relative;
     }
 
     .item {
@@ -301,6 +426,45 @@
     .spotlightItem {
       border: 1px solid rgba(240,171,252,0.12);
       background: linear-gradient(180deg, rgba(255,255,255,0.045) 0%, rgba(255,255,255,0.025) 100%);
+    }
+
+    .heroCard {
+      padding: 16px 14px 15px 14px;
+      border-width: 1px;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.045),
+        0 0 0 1px rgba(255,255,255,0.03),
+        0 18px 40px rgba(0,0,0,0.16);
+    }
+
+    .heroCard::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      border-radius: inherit;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), transparent 42%);
+    }
+
+    .heroCard.globalHero {
+      border-color: rgba(125, 211, 252, 0.22);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.045),
+        0 0 30px rgba(125,211,252,0.06);
+    }
+
+    .heroCard.paymentsHero {
+      border-color: rgba(134, 239, 172, 0.22);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.045),
+        0 0 30px rgba(134,239,172,0.06);
+    }
+
+    .heroCard.spotlightHero {
+      border-color: rgba(240, 171, 252, 0.24);
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,0.045),
+        0 0 36px rgba(240,171,252,0.08);
     }
 
     .metaRow {
@@ -334,6 +498,27 @@
     .tag.neutral { color: var(--neutral); }
     .tag.spotlight { color: var(--spotlight); }
 
+    .statusTag {
+      display: inline-flex;
+      align-items: center;
+      padding: 4px 8px;
+      border-radius: 999px;
+      font-size: 9px;
+      letter-spacing: 0.1em;
+      font-weight: 800;
+      text-transform: uppercase;
+      border: 1px solid rgba(255,255,255,0.08);
+      background: rgba(255,255,255,0.035);
+      color: #e5e7eb;
+      white-space: nowrap;
+    }
+
+    .statusTag.now { color: #f9a8d4; border-color: rgba(249,168,212,0.18); }
+    .statusTag.developing { color: #93c5fd; border-color: rgba(147,197,253,0.18); }
+    .statusTag.policy { color: #fca5a5; border-color: rgba(252,165,165,0.18); }
+    .statusTag.market { color: #86efac; border-color: rgba(134,239,172,0.18); }
+    .statusTag.analysis { color: #d8b4fe; border-color: rgba(216,180,254,0.18); }
+
     .source {
       font-size: 10px;
       color: #8b8b95;
@@ -343,13 +528,38 @@
       white-space: nowrap;
     }
 
-    .timestamp {
-      font-size: 10px;
-      color: #9ca3af;
-      letter-spacing: 0.02em;
-      font-weight: 500;
-      text-transform: none;
+    .signalBadge {
+      margin-left: auto;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.06);
+      color: #cfd3dc;
+      font-size: 9px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
       white-space: nowrap;
+    }
+
+    .signalDots {
+      display: inline-flex;
+      gap: 3px;
+    }
+
+    .signalDot {
+      width: 5px;
+      height: 5px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.18);
+    }
+
+    .signalDot.on {
+      background: #f9a8d4;
+      box-shadow: 0 0 8px rgba(249,168,212,0.45);
     }
 
     .headline,
@@ -363,44 +573,90 @@
 
     .headline {
       font-size: 18px;
-      line-height: 1.24;
+      line-height: 1.22;
       color: #f5f5f7;
       letter-spacing: -0.02em;
-      font-weight: 590;
+      font-weight: 620;
       margin-bottom: 6px;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .heroCard .headline,
+    .heroCard .spotlightHeadline {
+      font-size: 19px;
     }
 
     .spotlightHeadline {
       font-size: 18px;
-      line-height: 1.24;
+      line-height: 1.22;
       color: #faf5ff;
       letter-spacing: -0.02em;
-      font-weight: 620;
+      font-weight: 630;
       margin-bottom: 6px;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .headlineMeta {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px;
+      margin: -1px 0 8px 0;
     }
 
     .headlineTimestamp {
       font-size: 12px;
       color: #9ca3af;
-      margin: -1px 0 8px 0;
       letter-spacing: 0.02em;
       font-weight: 500;
       min-width: 0;
       word-break: break-word;
       overflow-wrap: anywhere;
+      white-space: nowrap;
     }
 
-    .spotlightHeadline + .headlineTimestamp {
-      color: #c4b5fd;
-      opacity: 0.92;
+    .relativeTime {
+      font-size: 11px;
+      color: #c4c7d0;
+      letter-spacing: 0.02em;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.03);
+      white-space: nowrap;
+    }
+
+    .heroCard .relativeTime {
+      color: #f9a8d4;
+      border-color: rgba(249,168,212,0.12);
+      background: rgba(249,168,212,0.05);
     }
 
     .synopsis {
       font-size: 12px;
-      line-height: 1.4;
+      line-height: 1.42;
       color: #aeb0b8;
       letter-spacing: -0.01em;
       font-weight: 450;
+      display: -webkit-box;
+      -webkit-line-clamp: 4;
+      line-clamp: 4;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .heroCard .synopsis {
+      -webkit-line-clamp: 5;
+      line-clamp: 5;
     }
 
     .whyMatters {
@@ -410,6 +666,33 @@
       border: 1px solid rgba(255,255,255,0.06);
       background: rgba(255,255,255,0.03);
       min-width: 0;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .whyMatters.paymentsTone {
+      border-color: rgba(134,239,172,0.16);
+      background: linear-gradient(180deg, rgba(134,239,172,0.05), rgba(255,255,255,0.02));
+    }
+
+    .whyMatters.regulationTone {
+      border-color: rgba(252,165,165,0.16);
+      background: linear-gradient(180deg, rgba(252,165,165,0.05), rgba(255,255,255,0.02));
+    }
+
+    .whyMatters.cryptoTone {
+      border-color: rgba(196,181,253,0.16);
+      background: linear-gradient(180deg, rgba(196,181,253,0.05), rgba(255,255,255,0.02));
+    }
+
+    .whyMatters.globalTone {
+      border-color: rgba(125,211,252,0.16);
+      background: linear-gradient(180deg, rgba(125,211,252,0.05), rgba(255,255,255,0.02));
+    }
+
+    .whyMatters.indiaTone {
+      border-color: rgba(251,191,36,0.16);
+      background: linear-gradient(180deg, rgba(251,191,36,0.05), rgba(255,255,255,0.02));
     }
 
     .whyMattersLabel {
@@ -423,9 +706,14 @@
 
     .whyMattersText {
       font-size: 11px;
-      line-height: 1.4;
+      line-height: 1.42;
       color: #d1d5db;
       letter-spacing: -0.01em;
+      display: -webkit-box;
+      -webkit-line-clamp: 3;
+      line-clamp: 3;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
     }
 
     .kw-payments { color: var(--kw-payments); font-weight: 700; }
@@ -514,16 +802,16 @@
     .breakingItem {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
+      gap: 9px;
       color: #e5e7eb;
       font-size: 13px;
       letter-spacing: -0.01em;
       white-space: nowrap;
+      min-width: 0;
     }
 
-    .breakingDot {
-      color: #f9a8d4;
-      opacity: 0.9;
+    .breakingDivider {
+      color: rgba(255,255,255,0.18);
       font-size: 13px;
     }
 
@@ -532,7 +820,19 @@
       font-size: 10px;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      font-weight: 700;
+      font-weight: 800;
+    }
+
+    .breakingTopic {
+      color: #f5d0fe;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 800;
+      padding: 3px 7px;
+      border-radius: 999px;
+      border: 1px solid rgba(240,171,252,0.18);
+      background: rgba(240,171,252,0.05);
     }
 
     .breakingTime {
@@ -558,10 +858,24 @@
 </head>
 <body>
   <div class="mainHeader">
-    <div class="headerTitle">Avik's Newsroom Monitor</div>
+    <div class="headerLeft">
+      <div class="headerTitle">Avik's Newsroom Monitor</div>
+      <div class="liveRow">
+        <span class="livePill"><span class="liveDot"></span>Live</span>
+        <span id="refreshRow">Last refresh --:--:--</span>
+      </div>
+    </div>
+
     <div class="headerClock">
       <div class="clockRow" id="clockRow">EST --:-- | IST --:-- | CST --:-- | PT --:--</div>
       <div class="dateRow" id="dateRow">Loading date...</div>
+    </div>
+  </div>
+
+  <div class="themesBar">
+    <div class="themesLabel">Watching</div>
+    <div class="themesViewport">
+      <div class="themesTrack" id="themesTrack"></div>
     </div>
   </div>
 
@@ -600,13 +914,13 @@
     const PIXELS_PER_SECOND_LEFT = 7;
     const PIXELS_PER_SECOND_RIGHT = 7;
     const PIXELS_PER_SECOND_SPOTLIGHT = 6;
-    const PIXELS_PER_SECOND_TICKER = 70;
+    const PIXELS_PER_SECOND_TICKER = 72;
 
     const MAX_PER_SOURCE_PER_COLUMN = 3;
     const HIGH_SIGNAL_COUNT = 3;
     const MAX_ITEMS_PER_COLUMN = 14;
     const MAX_SPOTLIGHT_ITEMS = 10;
-    const MAX_BREAKING_ITEMS = 18;
+    const MAX_BREAKING_ITEMS = 20;
 
     let lastGoodLeftItems = [];
     let lastGoodRightItems = [];
@@ -655,10 +969,10 @@
 
     const keywordRules = [
       { cls: "kw-payments", words: ["visa", "mastercard", "payment", "payments", "merchant", "wallet", "checkout", "banking", "cross-border", "fednow", "iso 20022"] },
-      { cls: "kw-regulation", words: ["rbi", "sec", "cftc", "regulation", "regulator", "policy", "law", "rules", "compliance", "probe", "lawsuit", "sanction", "central bank", "bis", "imf"] },
+      { cls: "kw-regulation", words: ["rbi", "sec", "cftc", "regulation", "regulator", "policy", "law", "rules", "compliance", "probe", "lawsuit", "sanction", "central bank", "bis", "imf", "mica"] },
       { cls: "kw-india", words: ["india", "indian", "rbi", "rupee", "mumbai", "delhi", "upi"] },
-      { cls: "kw-digital", words: ["stablecoin", "bitcoin", "crypto", "blockchain", "token", "digital money", "cbdc", "usdc", "usdt", "tokenization", "onchain", "on-chain"] },
-      { cls: "kw-ai", words: ["ai", "artificial intelligence", "agentic", "automation", "model"] }
+      { cls: "kw-digital", words: ["stablecoin", "bitcoin", "crypto", "blockchain", "token", "digital money", "cbdc", "usdc", "usdt", "tokenization", "onchain", "on-chain", "xrp"] },
+      { cls: "kw-ai", words: ["ai", "artificial intelligence", "agentic", "automation", "model", "anthropic"] }
     ];
 
     async function fetchFeedItems(feed) {
@@ -743,27 +1057,18 @@
     function areLikelyDuplicateTitles(a, b) {
       const n1 = normalizeTitle(a);
       const n2 = normalizeTitle(b);
-
       if (!n1 || !n2) return false;
       if (n1 === n2) return true;
-
-      if ((n1.includes(n2) || n2.includes(n1)) && Math.min(n1.length, n2.length) >= 40) {
-        return true;
-      }
-
+      if ((n1.includes(n2) || n2.includes(n1)) && Math.min(n1.length, n2.length) >= 40) return true;
       return getJaccardSimilarity(a, b) >= 0.78;
     }
 
     function dedupeItems(items) {
       const result = [];
-
       for (const item of items) {
         const duplicate = result.some(existing => areLikelyDuplicateTitles(existing.title, item.title));
-        if (!duplicate) {
-          result.push(item);
-        }
+        if (!duplicate) result.push(item);
       }
-
       return result;
     }
 
@@ -773,17 +1078,13 @@
 
       for (const item of leftItems) {
         const duplicate = cleanLeft.some(existing => areLikelyDuplicateTitles(existing.title, item.title));
-        if (!duplicate) {
-          cleanLeft.push(item);
-        }
+        if (!duplicate) cleanLeft.push(item);
       }
 
       for (const item of rightItems) {
         const duplicateOnLeft = cleanLeft.some(existing => areLikelyDuplicateTitles(existing.title, item.title));
         const duplicateOnRight = cleanRight.some(existing => areLikelyDuplicateTitles(existing.title, item.title));
-        if (!duplicateOnLeft && !duplicateOnRight) {
-          cleanRight.push(item);
-        }
+        if (!duplicateOnLeft && !duplicateOnRight) cleanRight.push(item);
       }
 
       return { cleanLeft, cleanRight };
@@ -791,80 +1092,57 @@
 
     async function collectFeedItems(feeds, perFeedLimit = 6, totalLimit = 30) {
       let allItems = [];
-
       for (const feed of feeds) {
         try {
           const items = await fetchFeedItems(feed);
-          if (items.length > 0) {
-            allItems = allItems.concat(items.slice(0, perFeedLimit));
-          }
+          if (items.length > 0) allItems = allItems.concat(items.slice(0, perFeedLimit));
         } catch (error) {
           console.log("Feed failed:", feed.url, error);
         }
       }
-
       return dedupeItems(allItems).slice(0, totalLimit);
     }
 
     function getCategory(item, columnType) {
-      const text = item.title.toLowerCase();
+      const text = (item.title || "").toLowerCase();
 
       if (
-        text.includes("regulation") ||
-        text.includes("regulator") ||
-        text.includes("policy") ||
-        text.includes("rbi") ||
-        text.includes("sec") ||
-        text.includes("cftc") ||
-        text.includes("compliance") ||
-        text.includes("law") ||
-        text.includes("rules") ||
-        text.includes("central bank") ||
-        text.includes("bis") ||
-        text.includes("imf")
-      ) {
-        return "regulation";
-      }
+        text.includes("regulation") || text.includes("regulator") || text.includes("policy") ||
+        text.includes("rbi") || text.includes("sec") || text.includes("cftc") ||
+        text.includes("compliance") || text.includes("law") || text.includes("rules") ||
+        text.includes("central bank") || text.includes("bis") || text.includes("imf") ||
+        text.includes("mica")
+      ) return "regulation";
 
       if (
-        text.includes("stablecoin") ||
-        text.includes("usdc") ||
-        text.includes("usdt") ||
-        text.includes("tokenization") ||
-        text.includes("onchain") ||
-        text.includes("on-chain") ||
-        text.includes("bitcoin") ||
-        text.includes("crypto") ||
-        text.includes("blockchain") ||
-        text.includes("token") ||
-        text.includes("cbdc")
-      ) {
-        return "crypto";
-      }
+        text.includes("stablecoin") || text.includes("usdc") || text.includes("usdt") ||
+        text.includes("tokenization") || text.includes("onchain") || text.includes("on-chain") ||
+        text.includes("bitcoin") || text.includes("crypto") || text.includes("blockchain") ||
+        text.includes("token") || text.includes("cbdc") || text.includes("xrp")
+      ) return "crypto";
 
       if (
-        text.includes("payment") ||
-        text.includes("merchant") ||
-        text.includes("fintech") ||
-        text.includes("visa") ||
-        text.includes("mastercard") ||
-        text.includes("checkout") ||
-        text.includes("wallet") ||
-        text.includes("banking") ||
-        text.includes("cross-border") ||
-        text.includes("artificial intelligence") ||
-        text.includes("ai") ||
-        text.includes("fednow") ||
-        text.includes("iso 20022")
-      ) {
-        return "payments";
-      }
+        text.includes("payment") || text.includes("merchant") || text.includes("fintech") ||
+        text.includes("visa") || text.includes("mastercard") || text.includes("checkout") ||
+        text.includes("wallet") || text.includes("banking") || text.includes("cross-border") ||
+        text.includes("artificial intelligence") || text.includes("ai") ||
+        text.includes("fednow") || text.includes("iso 20022")
+      ) return "payments";
 
-      if (columnType === "left") {
-        return item.defaultCategory === "india" ? "india" : "global";
-      }
-
+      if (columnType === "left") return item.defaultCategory === "india" ? "india" : "global";
       return item.defaultCategory || "neutral";
+    }
+
+    function getTopicLabel(category, item, columnType) {
+      if (columnType === "spotlight") return "Stablecoin";
+      switch (category) {
+        case "global": return "Global";
+        case "india": return "India";
+        case "payments": return "Payments";
+        case "crypto": return "Stablecoin";
+        case "regulation": return "Reg";
+        default: return "Update";
+      }
     }
 
     function getTagLabel(category) {
@@ -901,6 +1179,7 @@
         if (text.includes("fednow")) score += 12;
         if (text.includes("iso 20022")) score += 12;
         if (text.includes("cbdc")) score += 18;
+        if (text.includes("mica")) score += 18;
       }
 
       if (columnType === "left") {
@@ -917,8 +1196,38 @@
       if (text.includes("agentic")) score += 12;
       if (text.includes("probe") || text.includes("lawsuit") || text.includes("sanction")) score += 12;
       if (text.includes("central bank") || text.includes("bis") || text.includes("imf")) score += 14;
+      if (text.includes("hack") || text.includes("cyber")) score += 10;
+      if (text.includes("white house")) score += 8;
 
       return score;
+    }
+
+    function getSignalLevel(item, columnType) {
+      const score = getPriorityScore(item, columnType);
+      if (score >= 38) return 3;
+      if (score >= 24) return 2;
+      return 1;
+    }
+
+    function getStatusTag(item, category) {
+      const text = (item.title + " " + (item.description || "")).toLowerCase();
+
+      if (text.includes("regulation") || text.includes("policy") || text.includes("law") || text.includes("sec") || text.includes("rbi") || text.includes("mica")) {
+        return { label: "Policy", cls: "policy" };
+      }
+      if (text.includes("develop") || text.includes("could") || text.includes("reportedly") || text.includes("review") || text.includes("scramble")) {
+        return { label: "Developing", cls: "developing" };
+      }
+      if (text.includes("market") || text.includes("listing") || text.includes("earnings") || text.includes("funding") || text.includes("valuation")) {
+        return { label: "Market", cls: "market" };
+      }
+      if (category === "crypto") {
+        return { label: "Now", cls: "now" };
+      }
+      if (category === "payments") {
+        return { label: "Market", cls: "market" };
+      }
+      return { label: "Analysis", cls: "analysis" };
     }
 
     function balanceAndRankItems(items, columnType, maxPerSource = 3, maxItems = MAX_ITEMS_PER_COLUMN) {
@@ -933,7 +1242,6 @@
       enriched.sort((a, b) => {
         const dateA = new Date(a.pubDate || 0).getTime();
         const dateB = new Date(b.pubDate || 0).getTime();
-
         if (b.priority !== a.priority) return b.priority - a.priority;
         if (dateB !== dateA) return dateB - dateA;
         return a.originalIndex - b.originalIndex;
@@ -966,8 +1274,8 @@
         .trim();
 
       if (!cleaned) return "";
-
       const parts = cleaned.match(/[^.!?]+[.!?]+/g);
+
       if (parts && parts.length) {
         const firstTwo = parts.slice(0, 2).join(" ").replace(/\s+/g, " ").trim();
         if (firstTwo.length >= 50) return firstTwo;
@@ -988,31 +1296,24 @@
       if (text.includes("visa") || text.includes("mastercard")) {
         return "Could affect card network strategy, merchant economics, or acceptance trends across the market.";
       }
-
       if (text.includes("stablecoin")) {
         return "Signals momentum in programmable money, new settlement models, or cross-border payment innovation.";
       }
-
       if (text.includes("cross-border")) {
         return "Important for payment speed, corridor economics, settlement efficiency, and global merchant operations.";
       }
-
       if (category === "regulation") {
         return "This regulatory development could influence compliance priorities, market behavior, and strategic planning.";
       }
-
       if (category === "crypto") {
         return "This digital money update may shape adoption, investor sentiment, policy debate, or infrastructure direction.";
       }
-
       if (category === "payments") {
         return "This payments and fintech update is relevant to merchants, platforms, banks, and digital commerce decision-making.";
       }
-
       if (category === "india") {
         return "This India-focused development may matter for financial services, consumer behavior, and business conditions.";
       }
-
       if (columnType === "left") {
         return "This business and macro update adds context to why the headline matters more broadly.";
       }
@@ -1032,44 +1333,49 @@
       if (text.includes("stablecoin") && text.includes("bank")) {
         return "This may indicate stronger institutional movement toward stablecoin-enabled settlement, with implications for treasury design, liquidity models, and bank-led digital money infrastructure.";
       }
-
       if (text.includes("stablecoin") && text.includes("cross-border")) {
         return "This matters because cross-border stablecoin workflows are steadily moving closer to real operating use cases where speed, transparency, and cost are strategic differentiators.";
       }
-
-      if (text.includes("stablecoin") && (text.includes("regulation") || text.includes("policy") || text.includes("law") || text.includes("sec"))) {
+      if (text.includes("stablecoin") && (text.includes("regulation") || text.includes("policy") || text.includes("law") || text.includes("sec") || text.includes("mica"))) {
         return "The strategic significance lies in whether regulation accelerates enterprise adoption through clarity or slows expansion by increasing compliance and operating friction.";
       }
-
       if (text.includes("stablecoin") || text.includes("usdc") || text.includes("usdt")) {
         return "This is relevant because stablecoins are becoming a practical bridge between traditional financial rails and programmable digital settlement.";
       }
-
       if (text.includes("tokenization")) {
         return "This points to the broader shift toward programmable assets that can reshape issuance, transfer, settlement, and reconciliation models.";
       }
-
       if (text.includes("cbdc")) {
         return "CBDC developments can influence policy direction, interoperability priorities, and the competitive position of private digital money models.";
       }
-
       if (text.includes("visa") || text.includes("mastercard")) {
         return "Moves by large network players can materially influence merchant adoption patterns, ecosystem standards, and the shape of future digital money integration.";
       }
-
       if (category === "regulation") {
         return "This has strategic weight because regulatory direction often determines adoption speed, compliance cost, and market viability.";
       }
-
       if (category === "payments") {
         return "This matters because payments infrastructure shifts can change customer experience, operating margins, settlement speed, and platform scalability.";
       }
-
       if (category === "india") {
         return "This is important because India often serves as a leading indicator for scaled digital payment adoption and public infrastructure-led innovation.";
       }
+      if (category === "global") {
+        return "This broader macro signal may shape market sentiment, business confidence, and strategic prioritization across sectors.";
+      }
 
       return "The broader significance lies in how this development could influence market structure, operating models, and strategic priorities.";
+    }
+
+    function getWhyTone(category) {
+      switch (category) {
+        case "payments": return "paymentsTone";
+        case "regulation": return "regulationTone";
+        case "crypto": return "cryptoTone";
+        case "india": return "indiaTone";
+        case "global": return "globalTone";
+        default: return "globalTone";
+      }
     }
 
     function escapeHtml(text) {
@@ -1080,7 +1386,6 @@
 
     function highlightKeywords(text) {
       let output = escapeHtml(text);
-
       keywordRules.forEach(rule => {
         rule.words.forEach(word => {
           const escaped = word.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
@@ -1088,16 +1393,13 @@
           output = output.replace(regex, `<span class="${rule.cls}">$1</span>`);
         });
       });
-
       return output;
     }
 
     function formatDateTime(dateStr) {
       if (!dateStr) return "";
-
       const date = new Date(dateStr);
       if (Number.isNaN(date.getTime())) return "";
-
       return new Intl.DateTimeFormat("en-US", {
         month: "short",
         day: "numeric",
@@ -1108,31 +1410,77 @@
       }).format(date);
     }
 
-    function buildItemHTML(items, columnType) {
-      return items.map(item => {
+    function getRelativeTime(dateStr) {
+      if (!dateStr) return "";
+      const date = new Date(dateStr);
+      if (Number.isNaN(date.getTime())) return "";
+
+      const diffMs = Date.now() - date.getTime();
+      const minutes = Math.floor(diffMs / 60000);
+
+      if (minutes < 1) return "Just now";
+      if (minutes < 60) return `${minutes}m ago`;
+
+      const hours = Math.floor(minutes / 60);
+      if (hours < 24) return `${hours}h ago`;
+
+      const days = Math.floor(hours / 24);
+      return `${days}d ago`;
+    }
+
+    function buildSignalDots(level) {
+      return `
+        <span class="signalDots">
+          <span class="signalDot ${level >= 1 ? "on" : ""}"></span>
+          <span class="signalDot ${level >= 2 ? "on" : ""}"></span>
+          <span class="signalDot ${level >= 3 ? "on" : ""}"></span>
+        </span>
+      `;
+    }
+
+    function getHeroClass(columnType) {
+      if (columnType === "left") return "globalHero";
+      if (columnType === "right") return "paymentsHero";
+      return "spotlightHero";
+    }
+
+    function buildItemHTML(items, columnType, heroCount = 1) {
+      return items.map((item, index) => {
         const category = getCategory(item, columnType);
         const synopsis = generateSynopsis(item, category, columnType);
         const whyThisMatters = generateWhyThisMatters(item, category);
         const isSpotlight = columnType === "spotlight";
+        const isHero = index < heroCount;
+        const status = getStatusTag(item, category);
+        const signalLevel = getSignalLevel(item, columnType);
+        const topicLabel = getTopicLabel(category, item, columnType);
 
         return `
-          <div class="${isSpotlight ? "spotlightItem" : "item"}">
+          <div class="${isSpotlight ? "spotlightItem" : "item"} ${isHero ? `heroCard ${getHeroClass(columnType)}` : ""}">
             <div class="metaRow">
               <span class="tag ${isSpotlight ? "spotlight" : category}">
                 ${isSpotlight ? "STABLECOIN" : getTagLabel(category)}
               </span>
+              <span class="statusTag ${status.cls}">${status.label}</span>
               <span class="source">${escapeHtml(item.source)}</span>
+              <span class="signalBadge">
+                ${buildSignalDots(signalLevel)}
+                <span>${signalLevel === 3 ? "High" : signalLevel === 2 ? "Med" : "Low"}</span>
+              </span>
             </div>
 
             <a class="newsLink" href="${escapeHtml(item.link || "#")}" target="_blank" rel="noopener noreferrer">
               <div class="${isSpotlight ? "spotlightHeadline" : "headline"}">${highlightKeywords(item.title)}</div>
             </a>
 
-            <div class="headlineTimestamp">${escapeHtml(formatDateTime(item.pubDate))}</div>
+            <div class="headlineMeta">
+              <div class="headlineTimestamp">${escapeHtml(formatDateTime(item.pubDate))}</div>
+              <div class="relativeTime">${escapeHtml(getRelativeTime(item.pubDate))}</div>
+            </div>
 
             <div class="synopsis">${escapeHtml(synopsis)}</div>
 
-            <div class="whyMatters">
+            <div class="whyMatters ${getWhyTone(category)}">
               <div class="whyMattersLabel">Why this matters</div>
               <div class="whyMattersText">${escapeHtml(whyThisMatters)}</div>
             </div>
@@ -1164,23 +1512,15 @@
         .slice(0, HIGH_SIGNAL_COUNT)
         .map(item => {
           const category = getCategory(item, columnType);
-          return {
-            ...item,
-            _synopsis: generateSynopsis(item, category, columnType)
-          };
+          return { ...item, _synopsis: generateSynopsis(item, category, columnType) };
         });
     }
 
     function repeatUntilTallEnough(items, viewportHeight, estimatedItemHeight = 300) {
       if (!items.length) return [];
-
       const minItemsNeeded = Math.ceil((viewportHeight * 1.9) / estimatedItemHeight);
       const repeated = [];
-
-      while (repeated.length < minItemsNeeded) {
-        repeated.push(...items);
-      }
-
+      while (repeated.length < minItemsNeeded) repeated.push(...items);
       return repeated;
     }
 
@@ -1214,7 +1554,8 @@
         config.estimatedItemHeight || 300
       );
 
-      const html = (config.showHighSignal ? buildHighSignalHTML(highSignal) : "") + buildItemHTML(repeatedItems, config.columnType);
+      const html = (config.showHighSignal ? buildHighSignalHTML(highSignal) : "") +
+        buildItemHTML(repeatedItems, config.columnType, config.heroCount || 1);
 
       const block1 = document.createElement("div");
       const block2 = document.createElement("div");
@@ -1240,7 +1581,6 @@
 
     function isStablecoinHeadline(item) {
       const text = (item.title + " " + (item.description || "")).toLowerCase();
-
       return (
         text.includes("stablecoin") ||
         text.includes("usdc") ||
@@ -1251,7 +1591,9 @@
         text.includes("cbdc") ||
         (text.includes("blockchain") && text.includes("payments")) ||
         text.includes("digital dollar") ||
-        text.includes("digital euro")
+        text.includes("digital euro") ||
+        text.includes("crypto adviser") ||
+        text.includes("clarity act")
       );
     }
 
@@ -1273,14 +1615,19 @@
     }
 
     function buildBreakingTickerHTML(items) {
-      return items.map(item => `
-        <div class="breakingItem">
-          <span class="breakingDot">●</span>
-          <span class="breakingSource">${escapeHtml(item.source || "Feed")}</span>
-          <span class="breakingTime">${escapeHtml(formatDateTime(item.pubDate))}</span>
-          <span class="breakingHeadline">${escapeHtml(item.title)}</span>
-        </div>
-      `).join("");
+      return items.map(item => {
+        const category = getCategory(item, "right");
+        const topic = getTopicLabel(category, item, isStablecoinHeadline(item) ? "spotlight" : "right");
+        return `
+          <div class="breakingItem">
+            <span class="breakingTopic">${escapeHtml(topic)}</span>
+            <span class="breakingSource">${escapeHtml(item.source || "Feed")}</span>
+            <span class="breakingTime">${escapeHtml(formatDateTime(item.pubDate))}</span>
+            <span class="breakingHeadline">${escapeHtml(item.title)}</span>
+            <span class="breakingDivider">•</span>
+          </div>
+        `;
+      }).join("");
     }
 
     function renderBreakingTicker(items) {
@@ -1299,10 +1646,8 @@
 
       const block1 = document.createElement("div");
       const block2 = document.createElement("div");
-
       block1.className = "breakingBlock";
       block2.className = "breakingBlock";
-
       block1.innerHTML = html;
       block2.innerHTML = html;
 
@@ -1319,6 +1664,36 @@
         void track.offsetWidth;
         track.style.animation = "";
       });
+    }
+
+    function buildThemesHTML(themes) {
+      return themes.map(theme => `<span class="themeChip">${escapeHtml(theme)}</span>`).join("");
+    }
+
+    function extractThemes(leftItems, rightItems, spotlightItems) {
+      const themes = new Set();
+
+      const all = [...spotlightItems, ...rightItems, ...leftItems];
+      const combinedText = all.map(x => `${x.title} ${x.description || ""}`.toLowerCase()).join(" || ");
+
+      if (combinedText.includes("stablecoin") || combinedText.includes("usdc") || combinedText.includes("clarity act")) themes.add("Stablecoins");
+      if (combinedText.includes("cross-border")) themes.add("Cross-border");
+      if (combinedText.includes("mica")) themes.add("MiCA");
+      if (combinedText.includes("fednow")) themes.add("FedNow");
+      if (combinedText.includes("rbi") || combinedText.includes("upi") || combinedText.includes("india")) themes.add("India Banking");
+      if (combinedText.includes("ai") || combinedText.includes("anthropic")) themes.add("AI Risk");
+      if (combinedText.includes("bank")) themes.add("Bank Adoption");
+      if (combinedText.includes("regulation") || combinedText.includes("policy") || combinedText.includes("sec")) themes.add("Regulation");
+      if (combinedText.includes("tokenization")) themes.add("Tokenization");
+      if (combinedText.includes("payments")) themes.add("Payments Infra");
+
+      return Array.from(themes).slice(0, 8);
+    }
+
+    function renderThemes(themes) {
+      const track = document.getElementById("themesTrack");
+      const finalThemes = themes.length ? themes : ["Stablecoins", "Cross-border", "Regulation", "Payments Infra"];
+      track.innerHTML = buildThemesHTML(finalThemes);
     }
 
     function getTime(zone) {
@@ -1344,6 +1719,17 @@
       document.getElementById("clockRow").textContent =
         `EST ${getTime("America/New_York")} | IST ${getTime("Asia/Kolkata")} | CST ${getTime("America/Chicago")} | PT ${getTime("America/Los_Angeles")}`;
       document.getElementById("dateRow").textContent = getDate("America/New_York");
+    }
+
+    function updateRefreshStamp() {
+      const now = new Date();
+      const stamp = new Intl.DateTimeFormat("en-US", {
+        hour: "numeric",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: true
+      }).format(now);
+      document.getElementById("refreshRow").textContent = `Last refresh ${stamp} EST`;
     }
 
     async function refreshAllNews() {
@@ -1372,7 +1758,8 @@
         pixelsPerSecond: PIXELS_PER_SECOND_LEFT,
         showHighSignal: true,
         minDuration: 110,
-        estimatedItemHeight: 270
+        estimatedItemHeight: 290,
+        heroCount: 1
       });
 
       renderSeamlessColumn({
@@ -1383,7 +1770,8 @@
         pixelsPerSecond: PIXELS_PER_SECOND_RIGHT,
         showHighSignal: true,
         minDuration: 110,
-        estimatedItemHeight: 285
+        estimatedItemHeight: 305,
+        heroCount: 1
       });
 
       renderSeamlessColumn({
@@ -1396,7 +1784,8 @@
         maxPerSource: 4,
         maxItems: MAX_SPOTLIGHT_ITEMS,
         minDuration: 95,
-        estimatedItemHeight: 300
+        estimatedItemHeight: 315,
+        heroCount: 1
       });
 
       const breakingItems = [
@@ -1406,9 +1795,12 @@
       ];
 
       renderBreakingTicker(breakingItems);
+      renderThemes(extractThemes(leftItems, rightItems, spotlightItems));
+      updateRefreshStamp();
     }
 
     updateClocks();
+    updateRefreshStamp();
     setInterval(updateClocks, 1000);
 
     refreshAllNews();
